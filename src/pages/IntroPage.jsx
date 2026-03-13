@@ -16,7 +16,7 @@ export default function IntroPage({ name, setName, age, setAge, gender, setGende
             return <circle key={i} cx={24 + 20 * Math.sin(rad)} cy={24 - 20 * Math.cos(rad)} r="1" fill="rgba(200,169,110,0.45)" />;
           })}
         </svg>
-        <h1 style={{ fontSize: "26px", fontWeight: "700", letterSpacing: "3px", lineHeight: 1.4, marginBottom: "6px", color: "#E8E4DC", fontFamily: "'SeoulNotice', sans-serif" }}>
+        <h1 style={{ fontSize: "26px", fontWeight: "900", letterSpacing: "3px", lineHeight: 1.4, marginBottom: "6px", color: "#E8E4DC", fontFamily: "'SeoulNotice', sans-serif" }}>
           방어기제 검사
         </h1>
         <div style={{ fontSize: "12px", color: "rgba(200,169,110,0.75)", letterSpacing: "2px", fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif" }}>

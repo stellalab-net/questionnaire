@@ -36,7 +36,7 @@ export default function SurveyPage({ pages, currentPage, setCurrentPage, answers
             const sel = answers[item.id];
             return (
               <div key={item.id} className="icard" style={{ background: sel ? "rgba(255,255,255,0.03)" : "rgba(255,255,255,0.02)", border: `1px solid ${sel ? "rgba(200,169,110,0.2)" : "rgba(255,255,255,0.06)"}`, borderRadius: "6px", padding: "16px 16px 14px", transition: "border-color 0.2s, background 0.2s" }}>
-                <p style={{ fontSize: "14px", lineHeight: 1.8, color: "rgba(232,228,220,0.88)", marginBottom: "14px" }}>
+                <p style={{ fontSize: "14px", lineHeight: 1.8, color: "rgba(232,228,220,0.88)", marginBottom: "14px", fontFamily: "'SeoulNotice', sans-serif", fontWeight: "800" }}>
                   <span style={{ color: "rgba(200,169,110,0.35)", fontSize: "10px", marginRight: "6px", fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif" }}>
                     {currentPage * PAGE_SIZE + idx + 1}.
                   </span>

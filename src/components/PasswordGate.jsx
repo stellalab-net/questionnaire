@@ -75,6 +75,7 @@ export default function PasswordGate({ children }) {
       <style>{`
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
         @font-face { font-family: 'SeoulNotice'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2505-1@1.0/SeoulAlrimTTF-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+        @font-face { font-family: 'SeoulNotice'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2505-1@1.0/SeoulAlrimTTF-Heavy.woff2') format('woff2'); font-weight: 900; font-display: swap; }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         input { -webkit-tap-highlight-color: transparent; outline: none; }
         input::placeholder { color: rgba(232,228,220,0.3); }
@@ -87,7 +88,7 @@ export default function PasswordGate({ children }) {
         <div style={{ fontSize: "10px", letterSpacing: "5px", color: "#C8A96E", marginBottom: "28px", fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif", fontStyle: "italic" }}>
           STELLA LAB
         </div>
-        <h2 style={{ fontSize: "18px", fontWeight: "700", letterSpacing: "3px", marginBottom: "8px", color: "#E8E4DC", fontFamily: "'SeoulNotice', sans-serif" }}>
+        <h2 style={{ fontSize: "18px", fontWeight: "900", letterSpacing: "3px", marginBottom: "8px", color: "#E8E4DC", fontFamily: "'SeoulNotice', sans-serif" }}>
           방어기제 검사
         </h2>
         <p style={{ fontSize: "12px", color: "rgba(232,228,220,0.35)", letterSpacing: "1px", marginBottom: "36px" }}>

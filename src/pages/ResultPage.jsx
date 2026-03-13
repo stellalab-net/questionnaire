@@ -62,7 +62,7 @@ export default function ResultPage({ answers, name, age, gender, onRetry }) {
           </div>
         )}
         <p style={{ fontSize: "12px", fontWeight: 300, color: "rgba(232,228,220,0.4)", letterSpacing: "2px", marginBottom: "8px" }}>우세 유형</p>
-        <div style={{ fontSize: "36px", fontWeight: "800", color: dominantColor, letterSpacing: "4px", fontFamily: "'SeoulNotice', sans-serif" }}>{dominantType}</div>
+        <div style={{ fontSize: "36px", fontWeight: "900", color: dominantColor, letterSpacing: "4px", fontFamily: "'SeoulNotice', sans-serif" }}>{dominantType}</div>
       </div>
 
       {/* Overview bars */}
