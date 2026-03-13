@@ -39,22 +39,9 @@ export default function IntroPage({ name, setName, age, setAge, gender, setGende
             <g style={{ animation: "orb 32s linear infinite reverse", transformOrigin: "70px 70px" }}>
               <circle cx="106" cy="70" r="2.5" fill="rgba(200,169,110,0.7)" />
             </g>
-            <circle cx="70" cy="70" r="14" fill="rgba(200,169,110,0.04)" />
-            <circle cx="70" cy="70" r="9" fill="rgba(200,169,110,0.08)" />
+            <circle cx="70" cy="70" r="5" fill="#C8A96E" opacity="0.9" />
+            <circle cx="70" cy="70" r="10" fill="rgba(200,169,110,0.12)" />
           </svg>
-          {/* 로고 중앙 오버레이 */}
-          <img
-            src={`${import.meta.env.BASE_URL}logo.png`}
-            alt="STELLA LAB"
-            style={{
-              position: "absolute", top: "50%", left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "52px", height: "52px",
-              filter: "brightness(0) invert(1)",
-              mixBlendMode: "screen",
-              opacity: 0.85,
-            }}
-          />
         </div>
 
         {/* 타이틀 */}
@@ -127,6 +114,17 @@ export default function IntroPage({ name, setName, age, setAge, gender, setGende
         </button>
         <p style={{ marginTop: "16px", fontSize: "10px", color: "rgba(232,228,220,0.2)", letterSpacing: "0.5px" }}>
           모든 응답은 익명으로 처리되며 연구 목적으로만 활용됩니다
+        </p>
+      </div>
+
+      {/* 저작권 고지 */}
+      <div className="fi" style={{ animationDelay: "0.7s", marginTop: "8px", textAlign: "center" }}>
+        <p style={{ fontSize: "10px", color: "rgba(200,169,110,0.3)", letterSpacing: "1px", lineHeight: 1.8 }}>
+          본 설문지는 STELLA LAB의 독자적 자산으로,<br />
+          무단 복제·배포·상업적 이용을 금합니다.
+        </p>
+        <p style={{ marginTop: "6px", fontSize: "9px", color: "rgba(232,228,220,0.15)", letterSpacing: "2px" }}>
+          © STELLA LAB · All Rights Reserved
         </p>
       </div>
     </div>
