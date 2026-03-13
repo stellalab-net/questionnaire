@@ -7,8 +7,8 @@ const firebaseConfig = {
   projectId: "questionnaire-fce29",
   storageBucket: "questionnaire-fce29.firebasestorage.app",
   messagingSenderId: "873910184985",
-  appId: "1:873910184985:web:299651dba41a5287414e88",
-  measurementId: "G-DL18740BKT",
+  appId: "1:873910184985:web:ad42b4fa8c999780414e88",
+  measurementId: "G-HCYC11P9R0",
   // Realtime Database URL (Firebase 콘솔 → Realtime Database에서 확인)
   databaseURL: "https://questionnaire-fce29-default-rtdb.firebaseio.com",
 };
