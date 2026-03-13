@@ -113,6 +113,11 @@ export default function ResultPage({ answers, name, age, gender, onRetry }) {
       {/* Interpretation */}
       <div className="rc" style={{ animationDelay: "0.45s", padding: "20px", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "6px", marginTop: "4px" }}>
         <p style={{ fontSize: "10px", letterSpacing: "3px", color: "#C8A96E", marginBottom: "12px" }}>해석 안내</p>
+        {name && (
+          <p style={{ fontSize: "15px", fontWeight: "900", color: "#E8E4DC", letterSpacing: "0.5px", marginBottom: "12px", fontFamily: "'SeoulNotice', sans-serif" }}>
+            {name}님의 우세 유형은 <span style={{ color: dominantColor }}>{dominantType}</span>입니다.
+          </p>
+        )}
         <p style={{ fontSize: "13px", lineHeight: 1.95, color: "rgba(232,228,220,0.5)" }}>
           성숙형 방어기제(승화·유머·억제 등)는 갈등을 건강하게 전환하는 기제이며, 신경증형(합리화·지성화·반동형성 등)은 중간 수준의 심리적 비용을 치르는 기제입니다. 미성숙형(투사·행동화·부정 등)은 왜곡 수준이 높아 대인관계와 심리적 적응에 어려움을 줄 수 있습니다. 이 결과는 상담 전문가와의 심층 해석을 권장합니다.
         </p>
