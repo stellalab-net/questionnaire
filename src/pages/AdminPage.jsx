@@ -43,6 +43,11 @@ export default function AdminPage() {
   const [saved, setSaved] = useState("");
 
   useEffect(() => {
+    document.title = "관리자 · STELLA LAB";
+    return () => { document.title = "방어기제 검사 · STELLA LAB"; };
+  }, []);
+
+  useEffect(() => {
     if (!adminAuthed) return;
     setLoading(true);
     getConfig()
