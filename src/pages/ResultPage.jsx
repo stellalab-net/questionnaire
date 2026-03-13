@@ -1,3 +1,5 @@
+import { useRef, useState } from "react";
+import { toPng } from "html-to-image";
 import { SCALES } from "../data/scales";
 import ResultBar from "../components/ResultBar";
 
@@ -19,6 +21,8 @@ function computeResults(answers) {
 }
 
 export default function ResultPage({ answers, name, age, gender, onRetry }) {
+  const captureRef = useRef(null);
+  const [saving, setSaving] = useState(false);
   const results = computeResults(answers);
   const sectionKeys = Object.keys(SCALES);
 
@@ -29,8 +33,26 @@ export default function ResultPage({ answers, name, age, gender, onRetry }) {
   const dominantType  = maturePct >= neuroticPct && maturePct >= immaturePct ? "성숙형" : neuroticPct >= immaturePct ? "신경증형" : "미성숙형";
   const dominantColor = dominantType === "성숙형" ? "#C8A96E" : dominantType === "신경증형" ? "#7E9EBF" : "#A07BBF";
 
+  async function handleSaveImage() {
+    if (!captureRef.current) return;
+    setSaving(true);
+    try {
+      const dataUrl = await toPng(captureRef.current, {
+        backgroundColor: "#0C0C12",
+        pixelRatio: 2,
+      });
+      const a = document.createElement("a");
+      a.href = dataUrl;
+      a.download = `방어기제검사_${name || "결과"}.png`;
+      a.click();
+    } finally {
+      setSaving(false);
+    }
+  }
+
   return (
     <div style={{ maxWidth: "480px", margin: "0 auto", padding: "44px 16px 72px" }}>
+    <div ref={captureRef} style={{ padding: "32px 16px", background: "#0C0C12" }}>
       {/* Header */}
       <div className="rc" style={{ animationDelay: "0s", textAlign: "center", marginBottom: "36px" }}>
         <div style={{ fontSize: "10px", letterSpacing: "4px", color: "#C8A96E", marginBottom: "14px" }}>STELLA LAB · 방어기제 검사 결과</div>
@@ -94,13 +116,20 @@ export default function ResultPage({ answers, name, age, gender, onRetry }) {
         </p>
       </div>
 
-      {/* Retry */}
-      <div style={{ textAlign: "center", marginTop: "36px" }}>
+      {/* Footer inside capture */}
+      <div style={{ marginTop: "24px", textAlign: "center", fontSize: "10px", letterSpacing: "2px", color: "rgba(232,228,220,0.18)" }}>STELLA LAB · 명리 × 심리</div>
+    </div>
+
+      {/* Buttons outside capture */}
+      <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "24px" }}>
+        <button onClick={handleSaveImage} disabled={saving}
+          style={{ width: "100%", padding: "15px", background: "transparent", border: "1px solid rgba(200,169,110,0.4)", color: "#C8A96E", fontSize: "12px", letterSpacing: "3px", cursor: "pointer", fontFamily: "inherit", borderRadius: "2px" }}>
+          {saving ? "저장 중..." : "이미지로 저장"}
+        </button>
         <button onClick={onRetry}
-          style={{ width: "100%", padding: "15px", background: "transparent", border: "1px solid rgba(200,169,110,0.25)", color: "rgba(200,169,110,0.55)", fontSize: "12px", letterSpacing: "3px", cursor: "pointer", fontFamily: "inherit", borderRadius: "2px" }}>
+          style={{ width: "100%", padding: "15px", background: "transparent", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(232,228,220,0.35)", fontSize: "12px", letterSpacing: "3px", cursor: "pointer", fontFamily: "inherit", borderRadius: "2px" }}>
           다시 검사하기
         </button>
-        <div style={{ marginTop: "20px", fontSize: "10px", letterSpacing: "2px", color: "rgba(232,228,220,0.18)" }}>STELLA LAB · 명리 × 심리</div>
       </div>
     </div>
   );
