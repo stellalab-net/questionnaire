@@ -57,7 +57,7 @@ export default function PasswordGate({ children }) {
 
   if (!active) {
     return (
-      <div style={{ minHeight: "100dvh", background: "#0C0C12", color: "#E8E4DC", fontFamily: "'Noto Serif KR', Georgia, serif", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ minHeight: "100dvh", background: "#0C0C12", color: "#E8E4DC", fontFamily: "'Soonbatang', Georgia, serif", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <p style={{ fontSize: "14px", color: "rgba(232,228,220,0.4)", letterSpacing: "2px" }}>현재 설문이 비활성화 상태입니다</p>
       </div>
     );
@@ -68,12 +68,14 @@ export default function PasswordGate({ children }) {
   return (
     <div style={{
       minHeight: "100dvh", background: "#0C0C12", color: "#E8E4DC",
-      fontFamily: "'Noto Serif KR', Georgia, serif",
+      fontFamily: "'Soonbatang', Georgia, serif",
       display: "flex", alignItems: "center", justifyContent: "center",
       padding: "24px",
     }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400&family=Cormorant+Garamond:ital,wght@1,300&display=swap');
+        @font-face { font-family: 'Soonbatang'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/SunBatang-Light.woff') format('woff'); font-weight: 300; font-display: swap; }
+        @font-face { font-family: 'Soonbatang'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/SunBatang-Medium.woff') format('woff'); font-weight: 500; font-display: swap; }
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&display=swap');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         input { -webkit-tap-highlight-color: transparent; outline: none; }
         input::placeholder { color: rgba(232,228,220,0.3); }

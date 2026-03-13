@@ -91,13 +91,15 @@ export default function AdminPage() {
 
   const base = {
     minHeight: "100dvh", background: "#0C0C12", color: "#E8E4DC",
-    fontFamily: "'Noto Serif KR', Georgia, serif",
+    fontFamily: "'Soonbatang', Georgia, serif",
     display: "flex", alignItems: "center", justifyContent: "center",
     padding: "24px",
   };
 
   const css = `
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400&family=Cormorant+Garamond:ital,wght@1,300&display=swap');
+    @font-face { font-family: 'Soonbatang'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/SunBatang-Light.woff') format('woff'); font-weight: 300; font-display: swap; }
+    @font-face { font-family: 'Soonbatang'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/SunBatang-Medium.woff') format('woff'); font-weight: 500; font-display: swap; }
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&display=swap');
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     input { -webkit-tap-highlight-color: transparent; outline: none; }
     input::placeholder { color: rgba(232,228,220,0.3); }
