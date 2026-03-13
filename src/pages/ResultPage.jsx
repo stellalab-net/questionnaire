@@ -56,7 +56,7 @@ export default function ResultPage({ answers, name, age, gender, onRetry }) {
         immature: { pct: immaturePct },
       },
       mechanisms,
-    }).catch(() => {}); // 저장 실패 시 조용히 무시
+    }).catch(e => console.error("[saveResponse]", e));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function handleSaveImage() {
