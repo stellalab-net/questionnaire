@@ -59,6 +59,7 @@ export default function AdminPage() {
     setResponsesLoading(true);
     getResponses()
       .then(setResponses)
+      .catch(e => console.error("[getResponses]", e))
       .finally(() => setResponsesLoading(false));
   }, [adminAuthed]);
 
@@ -208,7 +209,18 @@ export default function AdminPage() {
         <div style={{ marginTop: "32px" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
             <p style={{ fontSize: "10px", letterSpacing: "3px", color: "rgba(232,228,220,0.4)" }}>응답 목록</p>
-            <span style={{ fontSize: "10px", color: "rgba(200,169,110,0.5)" }}>{responses.length}건</span>
+            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+              <span style={{ fontSize: "10px", color: "rgba(200,169,110,0.5)" }}>{responses.length}건</span>
+              <button onClick={() => {
+                setResponsesLoading(true);
+                getResponses()
+                  .then(setResponses)
+                  .catch(e => console.error("[getResponses]", e))
+                  .finally(() => setResponsesLoading(false));
+              }} style={{ background: "transparent", border: "none", color: "rgba(232,228,220,0.3)", fontSize: "10px", cursor: "pointer", fontFamily: "inherit", letterSpacing: "1px", padding: 0 }}>
+                새로고침
+              </button>
+            </div>
           </div>
 
           {responsesLoading ? (

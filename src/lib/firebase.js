@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, get, set, push, query, orderByChild } from "firebase/database";
+import { getDatabase, ref, get, set, push } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDBQ1p5cEps1djhS6XKJs-PnTbUiL0xz6g",
@@ -29,9 +29,9 @@ export async function saveResponse(data) {
 }
 
 export async function getResponses() {
-  const snap = await get(query(ref(db, "responses"), orderByChild("submittedAt")));
+  const snap = await get(ref(db, "responses"));
   if (!snap.exists()) return [];
   const entries = [];
   snap.forEach(child => entries.push({ id: child.key, ...child.val() }));
-  return entries.reverse(); // 최신순
+  return entries.sort((a, b) => (b.submittedAt || 0) - (a.submittedAt || 0));
 }
