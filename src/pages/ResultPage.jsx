@@ -117,7 +117,15 @@ export default function ResultPage({ answers, name, age, gender, onRetry }) {
       </div>
 
       {/* Footer inside capture */}
-      <div style={{ marginTop: "24px", textAlign: "center", fontSize: "10px", letterSpacing: "2px", color: "rgba(232,228,220,0.18)" }}>STELLA LAB · 명리 × 심리</div>
+      <div style={{ marginTop: "24px", textAlign: "center" }}>
+        <div style={{ fontSize: "10px", letterSpacing: "2px", color: "rgba(232,228,220,0.18)", marginBottom: "8px" }}>STELLA LAB · 명리 × 심리</div>
+        <div style={{ fontSize: "9px", color: "rgba(232,228,220,0.22)", letterSpacing: "1px", lineHeight: 1.9 }}>
+          이 결과는 상담 전문가와의 심층 해석을 권장합니다
+        </div>
+        <div style={{ marginTop: "6px", fontSize: "9px", color: "rgba(200,169,110,0.3)", letterSpacing: "1px" }}>
+          인스타 stellalab.i &nbsp;·&nbsp; 네이버 stlab_i
+        </div>
+      </div>
     </div>
 
       {/* Buttons outside capture */}
