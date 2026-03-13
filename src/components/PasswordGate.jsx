@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getConfig } from "../lib/firebase";
 
 // 폴백: Firebase 연결 실패 시 사용할 기본 해시 (stellalab2025)
-const FALLBACK_HASH = "a4c4da568fe9b8e0f1f5c3be65aa7c620a9e3a9ed58a3c69e76b47cb2aade11b";
+const FALLBACK_HASH = "d1db1c6d3908f6025a02406f0797cefcc4e666ff71e22111999070bf4cef54c5";
 
 async function hashPassword(pw) {
   const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(pw));
