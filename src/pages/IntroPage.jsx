@@ -120,7 +120,12 @@ export default function IntroPage({ name, setName, age, setAge, gender, setGende
       {/* 저작권 고지 */}
       <div className="fi" style={{ animationDelay: "0.7s", marginTop: "8px", textAlign: "center" }}>
         <p style={{ fontSize: "10px", color: "rgba(200,169,110,0.3)", letterSpacing: "1px", lineHeight: 1.8 }}>
-          본 설문지는 STELLA LAB의 독자적 자산으로,<br />
+          본 설문지는{" "}
+          <a href="https://stellalab.net/" target="_blank" rel="noopener noreferrer"
+            style={{ color: "rgba(200,169,110,0.5)", textDecoration: "underline", textUnderlineOffset: "3px", textDecorationColor: "rgba(200,169,110,0.3)" }}>
+            STELLA LAB
+          </a>
+          의 독자적 자산으로,<br />
           무단 복제·배포·상업적 이용을 금합니다.
         </p>
         <p style={{ marginTop: "6px", fontSize: "9px", color: "rgba(232,228,220,0.15)", letterSpacing: "2px" }}>
