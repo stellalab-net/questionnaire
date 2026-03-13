@@ -117,13 +117,23 @@ export default function ResultPage({ answers, name, age, gender, onRetry }) {
       </div>
 
       {/* Footer inside capture */}
-      <div style={{ marginTop: "24px", textAlign: "center" }}>
-        <div style={{ fontSize: "10px", letterSpacing: "2px", color: "rgba(232,228,220,0.18)", marginBottom: "8px" }}>STELLA LAB · 명리 × 심리</div>
-        <div style={{ fontSize: "9px", color: "rgba(232,228,220,0.22)", letterSpacing: "1px", lineHeight: 1.9 }}>
+      <div style={{ marginTop: "28px", padding: "18px 0 4px", borderTop: "1px solid rgba(255,255,255,0.06)", textAlign: "center" }}>
+        <div style={{ fontSize: "10px", letterSpacing: "3px", color: "rgba(200,169,110,0.4)", marginBottom: "10px" }}>STELLA LAB · 명리 × 심리</div>
+        <div style={{ fontSize: "11px", color: "rgba(232,228,220,0.45)", letterSpacing: "0.5px", lineHeight: 1.8, marginBottom: "12px" }}>
           이 결과는 상담 전문가와의 심층 해석을 권장합니다
         </div>
-        <div style={{ marginTop: "6px", fontSize: "9px", color: "rgba(200,169,110,0.3)", letterSpacing: "1px" }}>
-          인스타 stellalab.i &nbsp;·&nbsp; 네이버 stlab_i
+        <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}>
+          <a href="https://www.instagram.com/stellalab.i/" target="_blank" rel="noopener noreferrer"
+            style={{ fontSize: "11px", color: "rgba(200,169,110,0.6)", textDecoration: "none", letterSpacing: "0.5px" }}>
+            <span style={{ fontSize: "9px", color: "rgba(232,228,220,0.3)", marginRight: "4px" }}>Instagram</span>
+            @stellalab.i
+          </a>
+          <span style={{ color: "rgba(255,255,255,0.1)", fontSize: "11px" }}>·</span>
+          <a href="mailto:stlab_i@naver.com"
+            style={{ fontSize: "11px", color: "rgba(200,169,110,0.6)", textDecoration: "none", letterSpacing: "0.5px" }}>
+            <span style={{ fontSize: "9px", color: "rgba(232,228,220,0.3)", marginRight: "4px" }}>Naver</span>
+            stlab_i
+          </a>
         </div>
       </div>
     </div>
