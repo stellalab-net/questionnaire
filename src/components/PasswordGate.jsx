@@ -1,10 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getConfig } from "../lib/firebase";
 
-// 비밀번호 변경: PASSWORD_HASH를 아래 방법으로 생성
-// 브라우저 콘솔에서: crypto.subtle.digest('SHA-256', new TextEncoder().encode('새비밀번호'))
-//   .then(b => console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')))
-// 현재 비밀번호: stellalab2025
-const PASSWORD_HASH = "a4c4da568fe9b8e0f1f5c3be65aa7c620a9e3a9ed58a3c69e76b47cb2aade11b";
+// 폴백: Firebase 연결 실패 시 사용할 기본 해시 (stellalab2025)
+const FALLBACK_HASH = "a4c4da568fe9b8e0f1f5c3be65aa7c620a9e3a9ed58a3c69e76b47cb2aade11b";
 
 async function hashPassword(pw) {
   const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(pw));
@@ -14,20 +12,55 @@ async function hashPassword(pw) {
 export default function PasswordGate({ children }) {
   const [input, setInput] = useState("");
   const [error, setError] = useState(false);
-  const [authed, setAuthed] = useState(
-    () => sessionStorage.getItem("stella_auth") === PASSWORD_HASH
-  );
+  const [loading, setLoading] = useState(true);
+  const [passwordHash, setPasswordHash] = useState(FALLBACK_HASH);
+  const [active, setActive] = useState(true);
+  const [authed, setAuthed] = useState(false);
+
+  useEffect(() => {
+    getConfig()
+      .then(config => {
+        if (config?.passwordHash) setPasswordHash(config.passwordHash);
+        if (config?.active === false) setActive(false);
+        // 세션 인증 확인
+        if (sessionStorage.getItem("stella_auth") === (config?.passwordHash ?? FALLBACK_HASH)) {
+          setAuthed(true);
+        }
+      })
+      .catch(() => {
+        // Firebase 실패 시 폴백 사용
+        if (sessionStorage.getItem("stella_auth") === FALLBACK_HASH) setAuthed(true);
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
     const h = await hashPassword(input);
-    if (h === PASSWORD_HASH) {
+    if (h === passwordHash) {
       sessionStorage.setItem("stella_auth", h);
       setAuthed(true);
     } else {
       setError(true);
       setInput("");
     }
+  }
+
+  if (loading) {
+    return (
+      <div style={{ minHeight: "100dvh", background: "#0C0C12", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ width: "20px", height: "20px", border: "1px solid rgba(200,169,110,0.3)", borderTopColor: "#C8A96E", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} />
+        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+      </div>
+    );
+  }
+
+  if (!active) {
+    return (
+      <div style={{ minHeight: "100dvh", background: "#0C0C12", color: "#E8E4DC", fontFamily: "'Noto Serif KR', Georgia, serif", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <p style={{ fontSize: "14px", color: "rgba(232,228,220,0.4)", letterSpacing: "2px" }}>현재 설문이 비활성화 상태입니다</p>
+      </div>
+    );
   }
 
   if (authed) return children;
@@ -53,7 +86,6 @@ export default function PasswordGate({ children }) {
         <div style={{ fontSize: "10px", letterSpacing: "5px", color: "#C8A96E", marginBottom: "28px", fontFamily: "Cormorant Garamond, serif", fontStyle: "italic" }}>
           STELLA LAB
         </div>
-
         <h2 style={{ fontSize: "18px", fontWeight: "300", letterSpacing: "3px", marginBottom: "8px" }}>
           방어기제 검사
         </h2>
@@ -69,17 +101,11 @@ export default function PasswordGate({ children }) {
             placeholder="비밀번호"
             autoFocus
             style={{
-              background: "transparent",
-              border: "none",
+              background: "transparent", border: "none",
               borderBottom: `1px solid ${error ? "rgba(255,100,100,0.5)" : "rgba(200,169,110,0.3)"}`,
-              padding: "12px 0",
-              fontSize: "15px",
-              color: "#E8E4DC",
-              fontFamily: "inherit",
-              textAlign: "center",
-              letterSpacing: "4px",
-              width: "100%",
-              transition: "border-color 0.2s",
+              padding: "12px 0", fontSize: "15px", color: "#E8E4DC",
+              fontFamily: "inherit", textAlign: "center", letterSpacing: "4px",
+              width: "100%", transition: "border-color 0.2s",
             }}
           />
           {error && (
@@ -87,19 +113,11 @@ export default function PasswordGate({ children }) {
               비밀번호가 올바르지 않습니다
             </p>
           )}
-          <button type="submit"
-            style={{
-              background: "transparent",
-              border: "1px solid rgba(200,169,110,0.4)",
-              color: "#C8A96E",
-              padding: "14px",
-              fontSize: "12px",
-              letterSpacing: "4px",
-              cursor: "pointer",
-              fontFamily: "inherit",
-              borderRadius: "2px",
-              transition: "border-color 0.2s",
-            }}>
+          <button type="submit" style={{
+            background: "transparent", border: "1px solid rgba(200,169,110,0.4)",
+            color: "#C8A96E", padding: "14px", fontSize: "12px", letterSpacing: "4px",
+            cursor: "pointer", fontFamily: "inherit", borderRadius: "2px",
+          }}>
             확 인
           </button>
         </form>

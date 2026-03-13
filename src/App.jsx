@@ -4,6 +4,7 @@ import { shuffle } from "./utils/shuffle";
 import IntroPage from "./pages/IntroPage";
 import SurveyPage from "./pages/SurveyPage";
 import ResultPage from "./pages/ResultPage";
+import AdminPage from "./pages/AdminPage";
 import PasswordGate from "./components/PasswordGate";
 
 const globalCss = `
@@ -33,6 +34,9 @@ const base = {
   fontFamily: "'Noto Serif KR', Georgia, serif",
   WebkitFontSmoothing: "antialiased",
 };
+
+// #admin 해시로 접근 시 관리자 페이지 표시
+const isAdminRoute = window.location.hash === "#admin";
 
 export default function App() {
   const [answers, setAnswers] = useState({});
@@ -67,39 +71,43 @@ export default function App() {
     setPage("intro");
   }
 
+  if (isAdminRoute) {
+    return <AdminPage />;
+  }
+
   return (
     <PasswordGate>
-    <div style={base}>
-      <style>{globalCss}</style>
-      {page === "intro" && (
-        <IntroPage
-          name={name} setName={setName}
-          age={age} setAge={setAge}
-          gender={gender} setGender={setGender}
-          total={allItems.length}
-          onStart={() => setPage("survey")}
-        />
-      )}
-      {page === "survey" && (
-        <SurveyPage
-          pages={pages}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          answers={answers}
-          setAnswer={setAnswer}
-          totalAnswered={Object.keys(answers).length}
-          total={allItems.length}
-          onFinish={() => setPage("result")}
-        />
-      )}
-      {page === "result" && (
-        <ResultPage
-          answers={answers}
-          name={name} age={age} gender={gender}
-          onRetry={handleRetry}
-        />
-      )}
-    </div>
+      <div style={base}>
+        <style>{globalCss}</style>
+        {page === "intro" && (
+          <IntroPage
+            name={name} setName={setName}
+            age={age} setAge={setAge}
+            gender={gender} setGender={setGender}
+            total={allItems.length}
+            onStart={() => setPage("survey")}
+          />
+        )}
+        {page === "survey" && (
+          <SurveyPage
+            pages={pages}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            answers={answers}
+            setAnswer={setAnswer}
+            totalAnswered={Object.keys(answers).length}
+            total={allItems.length}
+            onFinish={() => setPage("result")}
+          />
+        )}
+        {page === "result" && (
+          <ResultPage
+            answers={answers}
+            name={name} age={age} gender={gender}
+            onRetry={handleRetry}
+          />
+        )}
+      </div>
     </PasswordGate>
   );
 }
