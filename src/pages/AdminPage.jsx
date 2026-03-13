@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getConfig, setConfig } from "../lib/firebase";
 
 // 관리자 접근 비밀번호 (이 값은 코드 변경으로만 수정 가능)
-const ADMIN_PASSWORD = "stella-admin-2025";
+const ADMIN_PASSWORD = "prota123";
 
 async function hashPassword(pw) {
   const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(pw));
