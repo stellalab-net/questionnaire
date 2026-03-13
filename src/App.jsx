@@ -4,6 +4,7 @@ import { shuffle } from "./utils/shuffle";
 import IntroPage from "./pages/IntroPage";
 import SurveyPage from "./pages/SurveyPage";
 import ResultPage from "./pages/ResultPage";
+import PasswordGate from "./components/PasswordGate";
 
 const globalCss = `
   @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap');
@@ -67,6 +68,7 @@ export default function App() {
   }
 
   return (
+    <PasswordGate>
     <div style={base}>
       <style>{globalCss}</style>
       {page === "intro" && (
@@ -98,5 +100,6 @@ export default function App() {
         />
       )}
     </div>
+    </PasswordGate>
   );
 }
