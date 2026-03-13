@@ -3,7 +3,7 @@ export default function IntroPage({ name, setName, age, setAge, gender, setGende
     <div style={{ maxWidth: "480px", margin: "0 auto", padding: "52px 24px 64px", textAlign: "center" }}>
       {/* Logo area */}
       <div className="fi" style={{ animationDelay: "0s", marginBottom: "36px" }}>
-        <div style={{ fontSize: "10px", letterSpacing: "6px", color: "#C8A96E", marginBottom: "18px", fontFamily: "Cormorant Garamond, serif", fontStyle: "italic" }}>
+        <div style={{ fontSize: "10px", letterSpacing: "6px", color: "#C8A96E", marginBottom: "18px", fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif", fontStyle: "italic" }}>
           STELLA LAB · 스텔라랩
         </div>
         <svg width="44" height="44" viewBox="0 0 48 48" style={{ marginBottom: "18px" }}>
@@ -19,7 +19,7 @@ export default function IntroPage({ name, setName, age, setAge, gender, setGende
         <h1 style={{ fontSize: "26px", fontWeight: "300", letterSpacing: "3px", lineHeight: 1.4, marginBottom: "6px", color: "#E8E4DC" }}>
           방어기제 검사
         </h1>
-        <div style={{ fontSize: "12px", color: "rgba(200,169,110,0.75)", letterSpacing: "2px", fontFamily: "Cormorant Garamond, serif" }}>
+        <div style={{ fontSize: "12px", color: "rgba(200,169,110,0.75)", letterSpacing: "2px", fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif" }}>
           Defense Mechanism Questionnaire
         </div>
       </div>

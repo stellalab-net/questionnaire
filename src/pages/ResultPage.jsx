@@ -57,7 +57,7 @@ export default function ResultPage({ answers, name, age, gender, onRetry }) {
       <div className="rc" style={{ animationDelay: "0s", textAlign: "center", marginBottom: "36px" }}>
         <div style={{ fontSize: "10px", letterSpacing: "4px", color: "#C8A96E", marginBottom: "14px" }}>STELLA LAB · 방어기제 검사 결과</div>
         {name && (
-          <div style={{ fontSize: "17px", marginBottom: "6px", fontFamily: "Cormorant Garamond, serif", fontStyle: "italic" }}>
+          <div style={{ fontSize: "17px", marginBottom: "6px", fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif", fontStyle: "italic" }}>
             {name}{age ? ` (${age})` : ""}{gender ? ` · ${gender}` : ""}
           </div>
         )}
@@ -76,7 +76,7 @@ export default function ResultPage({ answers, name, age, gender, onRetry }) {
           <div key={t.label} style={{ marginBottom: "14px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
               <span style={{ fontSize: "13px", color: t.color, letterSpacing: "1px" }}>{t.label}</span>
-              <span style={{ fontSize: "13px", fontFamily: "Cormorant Garamond, serif", color: "rgba(232,228,220,0.55)" }}>{t.pct}%</span>
+              <span style={{ fontSize: "13px", fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif", color: "rgba(232,228,220,0.55)" }}>{t.pct}%</span>
             </div>
             <div style={{ height: "4px", background: "rgba(255,255,255,0.06)", borderRadius: "2px", overflow: "hidden" }}>
               <div style={{ width: `${t.pct}%`, height: "100%", background: t.color, borderRadius: "2px", transition: "width 1.2s ease" }} />
@@ -99,7 +99,7 @@ export default function ResultPage({ answers, name, age, gender, onRetry }) {
               <div key={m.name} style={{ marginBottom: "12px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "5px" }}>
                   <span style={{ fontSize: "13px", color: "rgba(232,228,220,0.75)" }}>{m.name}</span>
-                  <span style={{ fontSize: "11px", fontFamily: "Cormorant Garamond, serif", color: "rgba(232,228,220,0.4)" }}>{m.score}/{m.max}</span>
+                  <span style={{ fontSize: "11px", fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif", color: "rgba(232,228,220,0.4)" }}>{m.score}/{m.max}</span>
                 </div>
                 <ResultBar value={m.score} max={m.max} color={scale.color} />
               </div>

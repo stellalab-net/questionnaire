@@ -91,15 +91,13 @@ export default function AdminPage() {
 
   const base = {
     minHeight: "100dvh", background: "#0C0C12", color: "#E8E4DC",
-    fontFamily: "'Soonbatang', Georgia, serif",
+    fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif",
     display: "flex", alignItems: "center", justifyContent: "center",
     padding: "24px",
   };
 
   const css = `
-    @font-face { font-family: 'Soonbatang'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/SunBatang-Light.woff') format('woff'); font-weight: 300; font-display: swap; }
-    @font-face { font-family: 'Soonbatang'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/SunBatang-Medium.woff') format('woff'); font-weight: 500; font-display: swap; }
-    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&display=swap');
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     input { -webkit-tap-highlight-color: transparent; outline: none; }
     input::placeholder { color: rgba(232,228,220,0.3); }
@@ -114,7 +112,7 @@ export default function AdminPage() {
       <div style={base}>
         <style>{css}</style>
         <div className="admin-box" style={{ width: "100%", maxWidth: "320px", textAlign: "center" }}>
-          <div style={{ fontSize: "10px", letterSpacing: "5px", color: "#C8A96E", marginBottom: "28px", fontFamily: "Cormorant Garamond, serif", fontStyle: "italic" }}>
+          <div style={{ fontSize: "10px", letterSpacing: "5px", color: "#C8A96E", marginBottom: "28px", fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif", fontStyle: "italic" }}>
             STELLA LAB · ADMIN
           </div>
           <h2 style={{ fontSize: "16px", fontWeight: "300", letterSpacing: "3px", marginBottom: "32px", color: "#E8E4DC" }}>관리자 인증</h2>
@@ -138,7 +136,7 @@ export default function AdminPage() {
     <div style={{ ...base, alignItems: "flex-start" }}>
       <style>{css}</style>
       <div className="admin-box" style={{ width: "100%", maxWidth: "400px", margin: "0 auto", paddingTop: "40px" }}>
-        <div style={{ fontSize: "10px", letterSpacing: "5px", color: "#C8A96E", marginBottom: "8px", fontFamily: "Cormorant Garamond, serif", fontStyle: "italic" }}>
+        <div style={{ fontSize: "10px", letterSpacing: "5px", color: "#C8A96E", marginBottom: "8px", fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif", fontStyle: "italic" }}>
           STELLA LAB · ADMIN
         </div>
         <h1 style={{ fontSize: "18px", fontWeight: "300", letterSpacing: "2px", marginBottom: "32px", color: "#E8E4DC" }}>설문 관리</h1>
