@@ -1,7 +1,8 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { toPng } from "html-to-image";
 import { SCALES } from "../data/scales";
 import ResultBar from "../components/ResultBar";
+import { saveResponse } from "../lib/firebase";
 
 function computeResults(answers) {
   const res = {};
@@ -33,6 +34,30 @@ export default function ResultPage({ answers, name, age, gender, onRetry }) {
 
   const dominantType  = maturePct >= neuroticPct && maturePct >= immaturePct ? "성숙형" : neuroticPct >= immaturePct ? "신경증형" : "미성숙형";
   const dominantColor = dominantType === "성숙형" ? "#C8A96E" : dominantType === "신경증형" ? "#7E9EBF" : "#A07BBF";
+
+  const savedRef = useRef(false);
+  useEffect(() => {
+    if (savedRef.current) return;
+    savedRef.current = true;
+    const mechanisms = {};
+    for (const sk of Object.keys(results)) {
+      for (const [mk, mv] of Object.entries(results[sk].mechanisms)) {
+        mechanisms[mk] = { name: mv.name, score: mv.score, max: mv.max, pct: mv.pct };
+      }
+    }
+    saveResponse({
+      name: name || "",
+      age: age || "",
+      gender: gender || "",
+      dominantType,
+      scores: {
+        mature:   { pct: maturePct },
+        neurotic: { pct: neuroticPct },
+        immature: { pct: immaturePct },
+      },
+      mechanisms,
+    }).catch(() => {}); // 저장 실패 시 조용히 무시
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function handleSaveImage() {
     if (!captureRef.current) return;

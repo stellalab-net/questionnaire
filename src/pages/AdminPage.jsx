@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getConfig, setConfig } from "../lib/firebase";
+import { getConfig, setConfig, getResponses } from "../lib/firebase";
 
 // 관리자 접근 비밀번호 (이 값은 코드 변경으로만 수정 가능)
 const ADMIN_PASSWORD = "prota123";
@@ -41,6 +41,9 @@ export default function AdminPage() {
   const [confirmPw, setConfirmPw] = useState("");
   const [pwError, setPwError] = useState("");
   const [saved, setSaved] = useState("");
+  const [responses, setResponses] = useState([]);
+  const [responsesLoading, setResponsesLoading] = useState(false);
+  const [expandedId, setExpandedId] = useState(null);
 
   useEffect(() => {
     document.title = "관리자 · STELLA LAB";
@@ -53,6 +56,10 @@ export default function AdminPage() {
     getConfig()
       .then(c => setConfigState(c ?? { passwordHash: "", active: true }))
       .finally(() => setLoading(false));
+    setResponsesLoading(true);
+    getResponses()
+      .then(setResponses)
+      .finally(() => setResponsesLoading(false));
   }, [adminAuthed]);
 
   function handleAdminLogin(e) {
@@ -196,6 +203,88 @@ export default function AdminPage() {
         <p style={{ marginTop: "24px", fontSize: "10px", color: "rgba(232,228,220,0.2)", textAlign: "center", letterSpacing: "1px" }}>
           변경 사항은 즉시 반영됩니다 · 재배포 불필요
         </p>
+
+        {/* 응답 목록 */}
+        <div style={{ marginTop: "32px" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
+            <p style={{ fontSize: "10px", letterSpacing: "3px", color: "rgba(232,228,220,0.4)" }}>응답 목록</p>
+            <span style={{ fontSize: "10px", color: "rgba(200,169,110,0.5)" }}>{responses.length}건</span>
+          </div>
+
+          {responsesLoading ? (
+            <div style={{ textAlign: "center", padding: "24px", color: "rgba(232,228,220,0.2)", fontSize: "12px" }}>불러오는 중...</div>
+          ) : responses.length === 0 ? (
+            <div style={{ textAlign: "center", padding: "24px", color: "rgba(232,228,220,0.2)", fontSize: "12px" }}>응답 데이터가 없습니다</div>
+          ) : responses.map(r => {
+            const isOpen = expandedId === r.id;
+            const typeColor = r.dominantType === "성숙형" ? "#C8A96E" : r.dominantType === "신경증형" ? "#7E9EBF" : "#A07BBF";
+            const date = new Date(r.submittedAt);
+            const dateStr = `${date.getFullYear()}.${String(date.getMonth()+1).padStart(2,"0")}.${String(date.getDate()).padStart(2,"0")} ${String(date.getHours()).padStart(2,"0")}:${String(date.getMinutes()).padStart(2,"0")}`;
+            return (
+              <div key={r.id} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "4px", marginBottom: "8px", overflow: "hidden" }}>
+                {/* 행 헤더 */}
+                <div onClick={() => setExpandedId(isOpen ? null : r.id)}
+                  style={{ padding: "14px 16px", cursor: "pointer", display: "flex", alignItems: "center", gap: "12px" }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: "flex", alignItems: "baseline", gap: "8px", marginBottom: "4px" }}>
+                      <span style={{ fontSize: "14px", color: "#E8E4DC", fontFamily: "'SeoulNotice', sans-serif", fontWeight: 900 }}>
+                        {r.name || "익명"}
+                      </span>
+                      {(r.age || r.gender) && (
+                        <span style={{ fontSize: "11px", color: "rgba(232,228,220,0.35)" }}>
+                          {r.age}{r.age && r.gender ? " · " : ""}{r.gender}
+                        </span>
+                      )}
+                    </div>
+                    <div style={{ fontSize: "10px", color: "rgba(232,228,220,0.25)", letterSpacing: "0.5px" }}>{dateStr}</div>
+                  </div>
+                  <span style={{ fontSize: "12px", color: typeColor, letterSpacing: "1px", whiteSpace: "nowrap" }}>{r.dominantType}</span>
+                  <span style={{ fontSize: "10px", color: "rgba(232,228,220,0.25)", marginLeft: "4px" }}>{isOpen ? "▲" : "▼"}</span>
+                </div>
+
+                {/* 펼치기 */}
+                {isOpen && (
+                  <div style={{ borderTop: "1px solid rgba(255,255,255,0.05)", padding: "16px" }}>
+                    {/* 유형별 점수 */}
+                    <p style={{ fontSize: "9px", letterSpacing: "3px", color: "rgba(232,228,220,0.3)", marginBottom: "10px" }}>유형별 점수</p>
+                    {[
+                      { label: "성숙형", key: "mature", color: "#C8A96E" },
+                      { label: "신경증형", key: "neurotic", color: "#7E9EBF" },
+                      { label: "미성숙형", key: "immature", color: "#A07BBF" },
+                    ].map(t => (
+                      <div key={t.key} style={{ marginBottom: "8px" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "4px" }}>
+                          <span style={{ fontSize: "11px", color: t.color }}>{t.label}</span>
+                          <span style={{ fontSize: "11px", color: "rgba(232,228,220,0.4)", fontFamily: "'Pretendard', sans-serif" }}>{r.scores?.[t.key]?.pct ?? "-"}%</span>
+                        </div>
+                        <div style={{ height: "3px", background: "rgba(255,255,255,0.06)", borderRadius: "2px", overflow: "hidden" }}>
+                          <div style={{ width: `${r.scores?.[t.key]?.pct ?? 0}%`, height: "100%", background: t.color, borderRadius: "2px" }} />
+                        </div>
+                      </div>
+                    ))}
+
+                    {/* 메커니즘별 점수 */}
+                    {r.mechanisms && (
+                      <>
+                        <p style={{ fontSize: "9px", letterSpacing: "3px", color: "rgba(232,228,220,0.3)", marginTop: "16px", marginBottom: "10px" }}>메커니즘별 점수</p>
+                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px" }}>
+                          {Object.values(r.mechanisms).map(m => (
+                            <div key={m.name} style={{ background: "rgba(255,255,255,0.02)", borderRadius: "3px", padding: "8px 10px" }}>
+                              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                                <span style={{ fontSize: "11px", color: "rgba(232,228,220,0.6)" }}>{m.name}</span>
+                                <span style={{ fontSize: "10px", color: "rgba(232,228,220,0.35)", fontFamily: "'Pretendard', sans-serif" }}>{m.score}/{m.max}</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
