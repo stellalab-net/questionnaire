@@ -1,51 +1,126 @@
 export default function IntroPage({ name, setName, age, setAge, gender, setGender, total, onStart }) {
   return (
-    <div style={{ maxWidth: "480px", margin: "0 auto", padding: "52px 24px 64px", textAlign: "center" }}>
-      {/* Logo area */}
-      <div className="fi" style={{ animationDelay: "0s", marginBottom: "36px" }}>
-        <div style={{ fontSize: "10px", letterSpacing: "6px", color: "#C8A96E", marginBottom: "18px", fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif", fontStyle: "italic" }}>
-          STELLA LAB · 스텔라랩
+    <div style={{ maxWidth: "480px", margin: "0 auto", padding: "48px 24px 64px", textAlign: "center", position: "relative" }}>
+
+      {/* 배경 방사형 글로우 */}
+      <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: "400px", height: "400px", background: "radial-gradient(circle at center, rgba(200,169,110,0.07) 0%, transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
+
+      {/* 히어로 영역 */}
+      <div className="fi" style={{ animationDelay: "0s", marginBottom: "44px", position: "relative", zIndex: 1 }}>
+
+        {/* 브랜드 레이블 */}
+        <div style={{ fontSize: "9px", letterSpacing: "8px", color: "rgba(200,169,110,0.55)", marginBottom: "32px", fontFamily: "'Pretendard', sans-serif", textTransform: "uppercase" }}>
+          STELLA LAB
         </div>
-        <svg width="44" height="44" viewBox="0 0 48 48" style={{ marginBottom: "18px" }}>
-          <circle cx="24" cy="24" r="20" fill="none" stroke="rgba(200,169,110,0.25)" strokeWidth="0.5" />
-          <circle cx="24" cy="24" r="12" fill="none" stroke="rgba(200,169,110,0.45)" strokeWidth="0.5" />
-          <g className="orb"><circle cx="24" cy="4" r="2" fill="#C8A96E" /></g>
-          <circle cx="24" cy="24" r="3" fill="#C8A96E" />
-          {[0, 60, 120, 180, 240, 300].map((deg, i) => {
-            const rad = (deg * Math.PI) / 180;
-            return <circle key={i} cx={24 + 20 * Math.sin(rad)} cy={24 - 20 * Math.cos(rad)} r="1" fill="rgba(200,169,110,0.45)" />;
-          })}
-        </svg>
-        <h1 style={{ fontSize: "26px", fontWeight: "900", letterSpacing: "3px", lineHeight: 1.4, marginBottom: "6px", color: "#E8E4DC", fontFamily: "'SeoulNotice', sans-serif" }}>
+
+        {/* 대형 오비탈 SVG */}
+        <div style={{ position: "relative", display: "inline-block", marginBottom: "32px" }}>
+          {/* 외부 글로우 레이어 */}
+          <div style={{ position: "absolute", inset: "-20px", background: "radial-gradient(circle, rgba(200,169,110,0.08) 0%, transparent 70%)", borderRadius: "50%", pointerEvents: "none" }} />
+          <svg width="140" height="140" viewBox="0 0 140 140">
+            {/* 가장 바깥 ring - 매우 연하게 */}
+            <circle cx="70" cy="70" r="64" fill="none" stroke="rgba(200,169,110,0.08)" strokeWidth="1" strokeDasharray="4 6" />
+            {/* 외부 ring */}
+            <circle cx="70" cy="70" r="52" fill="none" stroke="rgba(200,169,110,0.18)" strokeWidth="0.8" />
+            {/* 중간 ring */}
+            <circle cx="70" cy="70" r="36" fill="none" stroke="rgba(200,169,110,0.32)" strokeWidth="0.8" />
+            {/* 내부 ring */}
+            <circle cx="70" cy="70" r="22" fill="none" stroke="rgba(200,169,110,0.5)" strokeWidth="0.8" />
+
+            {/* 외부 ring 점 6개 */}
+            {[0, 60, 120, 180, 240, 300].map((deg, i) => {
+              const rad = (deg * Math.PI) / 180;
+              return <circle key={i} cx={70 + 52 * Math.sin(rad)} cy={70 - 52 * Math.cos(rad)} r="1.5" fill="rgba(200,169,110,0.35)" />;
+            })}
+
+            {/* 중간 ring 점 4개 */}
+            {[45, 135, 225, 315].map((deg, i) => {
+              const rad = (deg * Math.PI) / 180;
+              return <circle key={i} cx={70 + 36 * Math.sin(rad)} cy={70 - 36 * Math.cos(rad)} r="1.2" fill="rgba(200,169,110,0.4)" />;
+            })}
+
+            {/* 십자 가이드라인 */}
+            <line x1="70" y1="34" x2="70" y2="106" stroke="rgba(200,169,110,0.06)" strokeWidth="0.5" />
+            <line x1="34" y1="70" x2="106" y2="70" stroke="rgba(200,169,110,0.06)" strokeWidth="0.5" />
+
+            {/* 회전하는 오비탈 점 (외부) */}
+            <g className="orb" style={{ transformOrigin: "70px 70px" }}>
+              <circle cx="70" cy="18" r="3.5" fill="#C8A96E" />
+              <circle cx="70" cy="18" r="6" fill="rgba(200,169,110,0.15)" />
+            </g>
+
+            {/* 역방향 느린 회전 점 (중간) */}
+            <g style={{ animation: "orb 32s linear infinite reverse", transformOrigin: "70px 70px" }}>
+              <circle cx="106" cy="70" r="2.5" fill="rgba(200,169,110,0.7)" />
+            </g>
+
+            {/* 중심 글로우 레이어들 */}
+            <circle cx="70" cy="70" r="14" fill="rgba(200,169,110,0.04)" />
+            <circle cx="70" cy="70" r="9" fill="rgba(200,169,110,0.08)" />
+            <circle cx="70" cy="70" r="5" fill="rgba(200,169,110,0.18)" />
+            <circle cx="70" cy="70" r="3" fill="#C8A96E" opacity="0.9" />
+            <circle cx="70" cy="70" r="1.5" fill="#E8D9B0" />
+          </svg>
+        </div>
+
+        {/* 타이틀 */}
+        <h1 style={{ fontSize: "30px", fontWeight: "900", letterSpacing: "4px", lineHeight: 1.3, marginBottom: "10px", color: "#E8E4DC", fontFamily: "'SeoulNotice', sans-serif" }}>
           방어기제 검사
         </h1>
-        <div style={{ fontSize: "12px", color: "rgba(200,169,110,0.75)", letterSpacing: "2px", fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif" }}>
+        <div style={{ fontSize: "11px", color: "rgba(200,169,110,0.55)", letterSpacing: "4px", fontFamily: "'Pretendard', sans-serif", marginBottom: "20px" }}>
           Defense Mechanism Questionnaire
+        </div>
+
+        {/* 장식 구분선 */}
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", justifyContent: "center" }}>
+          <div style={{ width: "48px", height: "1px", background: "linear-gradient(90deg, transparent, rgba(200,169,110,0.4))" }} />
+          <div style={{ width: "3px", height: "3px", borderRadius: "50%", background: "#C8A96E", opacity: 0.7 }} />
+          <div style={{ width: "3px", height: "3px", borderRadius: "50%", background: "#C8A96E", opacity: 0.4 }} />
+          <div style={{ width: "3px", height: "3px", borderRadius: "50%", background: "#C8A96E", opacity: 0.7 }} />
+          <div style={{ width: "48px", height: "1px", background: "linear-gradient(270deg, transparent, rgba(200,169,110,0.4))" }} />
         </div>
       </div>
 
-      {/* Description */}
-      <div className="fi" style={{ animationDelay: "0.25s", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(200,169,110,0.18)", borderRadius: "4px", padding: "24px 20px", marginBottom: "20px", textAlign: "left" }}>
-        <p style={{ fontSize: "14px", lineHeight: 1.9, color: "rgba(232,228,220,0.78)" }}>
+      {/* 설명 카드 */}
+      <div className="fi" style={{ animationDelay: "0.25s", background: "rgba(200,169,110,0.04)", border: "1px solid rgba(200,169,110,0.15)", borderRadius: "8px", padding: "24px 22px", marginBottom: "16px", textAlign: "left", position: "relative", overflow: "hidden" }}>
+        {/* 카드 상단 장식 */}
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(90deg, transparent, rgba(200,169,110,0.4), transparent)" }} />
+        <p style={{ fontSize: "14px", lineHeight: 2, color: "rgba(232,228,220,0.75)" }}>
           우리가 일상에서 무의식적으로 사용하는{" "}
-          <span style={{ color: "#C8A96E" }}>심리적 방어기제</span>의 패턴을 파악하기 위한 도구입니다.
+          <span style={{ color: "#C8A96E", fontWeight: 600 }}>심리적 방어기제</span>의 패턴을 파악하기 위한 도구입니다.
         </p>
-        <p style={{ marginTop: "12px", fontSize: "14px", lineHeight: 1.9, color: "rgba(232,228,220,0.78)" }}>
-          총 <strong style={{ color: "#E8E4DC", fontWeight: 600 }}>{total}문항</strong>이 무작위 순서로 제시됩니다. 정답은 없으며 떠오르는 대로 솔직하게 응답해 주세요.
+        <div style={{ marginTop: "16px", display: "flex", alignItems: "center", gap: "16px" }}>
+          <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.06)" }} />
+          <span style={{ fontSize: "11px", color: "rgba(200,169,110,0.5)", letterSpacing: "1px", whiteSpace: "nowrap" }}>
+            총 {total}문항 · 무작위 순서
+          </span>
+          <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.06)" }} />
+        </div>
+        <p style={{ marginTop: "16px", fontSize: "13px", lineHeight: 1.9, color: "rgba(232,228,220,0.55)" }}>
+          정답은 없습니다. 떠오르는 대로 솔직하게 응답해 주세요.
         </p>
       </div>
 
-      {/* Info fields */}
-      <div className="fi" style={{ animationDelay: "0.4s", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "4px", padding: "20px", marginBottom: "28px" }}>
-        <p style={{ fontSize: "11px", color: "rgba(232,228,220,0.4)", marginBottom: "16px", letterSpacing: "1px" }}>기본 정보 (선택)</p>
+      {/* 유형 뱃지 */}
+      <div className="fi" style={{ animationDelay: "0.35s", display: "flex", gap: "8px", justifyContent: "center", marginBottom: "20px" }}>
+        {[["성숙형", "#C8A96E"], ["신경증형", "#7E9EBF"], ["미성숙형", "#A07BBF"]].map(([label, color]) => (
+          <div key={label} style={{ padding: "5px 12px", borderRadius: "20px", border: `1px solid ${color}33`, background: `${color}0d`, fontSize: "10px", letterSpacing: "1px", color, fontFamily: "'Pretendard', sans-serif" }}>
+            {label}
+          </div>
+        ))}
+      </div>
+
+      {/* 기본 정보 */}
+      <div className="fi" style={{ animationDelay: "0.45s", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "8px", padding: "20px", marginBottom: "24px" }}>
+        <p style={{ fontSize: "10px", color: "rgba(232,228,220,0.35)", marginBottom: "18px", letterSpacing: "2px", textTransform: "uppercase" }}>기본 정보 (선택)</p>
         <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
           <input value={name} onChange={e => setName(e.target.value)} placeholder="이름"
-            style={{ background: "transparent", border: "none", borderBottom: "1px solid rgba(200,169,110,0.25)", padding: "10px 0", fontSize: "15px", color: "#E8E4DC", fontFamily: "inherit", width: "100%" }} />
+            style={{ background: "transparent", border: "none", borderBottom: "1px solid rgba(200,169,110,0.2)", padding: "10px 0", fontSize: "14px", color: "#E8E4DC", fontFamily: "inherit", width: "100%" }} />
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
             <input value={age} onChange={e => setAge(e.target.value)} placeholder="나이" type="number"
-              style={{ background: "transparent", border: "none", borderBottom: "1px solid rgba(200,169,110,0.25)", padding: "10px 0", fontSize: "15px", color: "#E8E4DC", fontFamily: "inherit", width: "100%" }} />
+              style={{ background: "transparent", border: "none", borderBottom: "1px solid rgba(200,169,110,0.2)", padding: "10px 0", fontSize: "14px", color: "#E8E4DC", fontFamily: "inherit", width: "100%" }} />
             <select value={gender} onChange={e => setGender(e.target.value)}
-              style={{ background: "#0C0C12", border: "none", borderBottom: "1px solid rgba(200,169,110,0.25)", padding: "10px 0", fontSize: "15px", color: gender ? "#E8E4DC" : "rgba(232,228,220,0.3)", fontFamily: "inherit", width: "100%", cursor: "pointer" }}>
+              style={{ background: "#0C0C12", border: "none", borderBottom: "1px solid rgba(200,169,110,0.2)", padding: "10px 0", fontSize: "14px", color: gender ? "#E8E4DC" : "rgba(232,228,220,0.3)", fontFamily: "inherit", width: "100%", cursor: "pointer" }}>
               <option value="" disabled>성별</option>
               <option value="남">남</option>
               <option value="여">여</option>
@@ -55,15 +130,17 @@ export default function IntroPage({ name, setName, age, setAge, gender, setGende
         </div>
       </div>
 
-      {/* Start button */}
-      <div className="fi" style={{ animationDelay: "0.55s" }}>
+      {/* 시작 버튼 */}
+      <div className="fi" style={{ animationDelay: "0.6s" }}>
         <button onClick={onStart}
-          style={{ width: "100%", background: "transparent", border: "1px solid #C8A96E", color: "#C8A96E", padding: "17px", fontSize: "14px", letterSpacing: "5px", cursor: "pointer", fontFamily: "inherit", borderRadius: "2px", transition: "background 0.2s" }}
-          onTouchStart={e => { e.currentTarget.style.background = "rgba(200,169,110,0.1)"; }}
-          onTouchEnd={e => { e.currentTarget.style.background = "transparent"; }}>
+          style={{ width: "100%", background: "linear-gradient(135deg, rgba(200,169,110,0.12) 0%, rgba(200,169,110,0.06) 100%)", border: "1px solid rgba(200,169,110,0.6)", color: "#C8A96E", padding: "18px", fontSize: "13px", letterSpacing: "6px", cursor: "pointer", fontFamily: "'Pretendard', sans-serif", fontWeight: 500, borderRadius: "4px", transition: "all 0.25s", position: "relative", overflow: "hidden" }}
+          onMouseEnter={e => { e.currentTarget.style.background = "linear-gradient(135deg, rgba(200,169,110,0.2) 0%, rgba(200,169,110,0.1) 100%)"; e.currentTarget.style.borderColor = "#C8A96E"; }}
+          onMouseLeave={e => { e.currentTarget.style.background = "linear-gradient(135deg, rgba(200,169,110,0.12) 0%, rgba(200,169,110,0.06) 100%)"; e.currentTarget.style.borderColor = "rgba(200,169,110,0.6)"; }}
+          onTouchStart={e => { e.currentTarget.style.background = "rgba(200,169,110,0.18)"; }}
+          onTouchEnd={e => { e.currentTarget.style.background = "linear-gradient(135deg, rgba(200,169,110,0.12) 0%, rgba(200,169,110,0.06) 100%)"; }}>
           검 사 시 작
         </button>
-        <p style={{ marginTop: "14px", fontSize: "11px", color: "rgba(232,228,220,0.25)", letterSpacing: "0.5px" }}>
+        <p style={{ marginTop: "16px", fontSize: "10px", color: "rgba(232,228,220,0.2)", letterSpacing: "0.5px" }}>
           모든 응답은 익명으로 처리되며 연구 목적으로만 활용됩니다
         </p>
       </div>
