@@ -18,53 +18,47 @@ export default function IntroPage({ name, setName, age, setAge, gender, setGende
           {/* 외부 글로우 레이어 */}
           <div style={{ position: "absolute", inset: "-20px", background: "radial-gradient(circle, rgba(200,169,110,0.08) 0%, transparent 70%)", borderRadius: "50%", pointerEvents: "none" }} />
           <svg width="140" height="140" viewBox="0 0 140 140">
-            {/* 가장 바깥 ring - 매우 연하게 */}
             <circle cx="70" cy="70" r="64" fill="none" stroke="rgba(200,169,110,0.08)" strokeWidth="1" strokeDasharray="4 6" />
-            {/* 외부 ring */}
             <circle cx="70" cy="70" r="52" fill="none" stroke="rgba(200,169,110,0.18)" strokeWidth="0.8" />
-            {/* 중간 ring */}
             <circle cx="70" cy="70" r="36" fill="none" stroke="rgba(200,169,110,0.32)" strokeWidth="0.8" />
-            {/* 내부 ring */}
             <circle cx="70" cy="70" r="22" fill="none" stroke="rgba(200,169,110,0.5)" strokeWidth="0.8" />
-
-            {/* 외부 ring 점 6개 */}
             {[0, 60, 120, 180, 240, 300].map((deg, i) => {
               const rad = (deg * Math.PI) / 180;
               return <circle key={i} cx={70 + 52 * Math.sin(rad)} cy={70 - 52 * Math.cos(rad)} r="1.5" fill="rgba(200,169,110,0.35)" />;
             })}
-
-            {/* 중간 ring 점 4개 */}
             {[45, 135, 225, 315].map((deg, i) => {
               const rad = (deg * Math.PI) / 180;
               return <circle key={i} cx={70 + 36 * Math.sin(rad)} cy={70 - 36 * Math.cos(rad)} r="1.2" fill="rgba(200,169,110,0.4)" />;
             })}
-
-            {/* 십자 가이드라인 */}
             <line x1="70" y1="34" x2="70" y2="106" stroke="rgba(200,169,110,0.06)" strokeWidth="0.5" />
             <line x1="34" y1="70" x2="106" y2="70" stroke="rgba(200,169,110,0.06)" strokeWidth="0.5" />
-
-            {/* 회전하는 오비탈 점 (외부) */}
             <g className="orb" style={{ transformOrigin: "70px 70px" }}>
               <circle cx="70" cy="18" r="3.5" fill="#C8A96E" />
               <circle cx="70" cy="18" r="6" fill="rgba(200,169,110,0.15)" />
             </g>
-
-            {/* 역방향 느린 회전 점 (중간) */}
             <g style={{ animation: "orb 32s linear infinite reverse", transformOrigin: "70px 70px" }}>
               <circle cx="106" cy="70" r="2.5" fill="rgba(200,169,110,0.7)" />
             </g>
-
-            {/* 중심 글로우 레이어들 */}
             <circle cx="70" cy="70" r="14" fill="rgba(200,169,110,0.04)" />
             <circle cx="70" cy="70" r="9" fill="rgba(200,169,110,0.08)" />
-            <circle cx="70" cy="70" r="5" fill="rgba(200,169,110,0.18)" />
-            <circle cx="70" cy="70" r="3" fill="#C8A96E" opacity="0.9" />
-            <circle cx="70" cy="70" r="1.5" fill="#E8D9B0" />
           </svg>
+          {/* 로고 중앙 오버레이 */}
+          <img
+            src={`${import.meta.env.BASE_URL}logo.png`}
+            alt="STELLA LAB"
+            style={{
+              position: "absolute", top: "50%", left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "52px", height: "52px",
+              filter: "brightness(0) invert(1)",
+              mixBlendMode: "screen",
+              opacity: 0.85,
+            }}
+          />
         </div>
 
         {/* 타이틀 */}
-        <h1 style={{ fontSize: "30px", fontWeight: "900", letterSpacing: "4px", lineHeight: 1.3, marginBottom: "10px", color: "#E8E4DC", fontFamily: "'SeoulNotice', sans-serif" }}>
+        <h1 style={{ fontSize: "30px", fontWeight: "900", letterSpacing: "1px", lineHeight: 1.3, marginBottom: "10px", color: "#E8E4DC", fontFamily: "'SeoulNotice', sans-serif" }}>
           방어기제 검사
         </h1>
         <div style={{ fontSize: "11px", color: "rgba(200,169,110,0.55)", letterSpacing: "4px", fontFamily: "'Pretendard', sans-serif", marginBottom: "20px" }}>
@@ -101,17 +95,8 @@ export default function IntroPage({ name, setName, age, setAge, gender, setGende
         </p>
       </div>
 
-      {/* 유형 뱃지 */}
-      <div className="fi" style={{ animationDelay: "0.35s", display: "flex", gap: "8px", justifyContent: "center", marginBottom: "20px" }}>
-        {[["성숙형", "#C8A96E"], ["신경증형", "#7E9EBF"], ["미성숙형", "#A07BBF"]].map(([label, color]) => (
-          <div key={label} style={{ padding: "5px 12px", borderRadius: "20px", border: `1px solid ${color}33`, background: `${color}0d`, fontSize: "10px", letterSpacing: "1px", color, fontFamily: "'Pretendard', sans-serif" }}>
-            {label}
-          </div>
-        ))}
-      </div>
-
       {/* 기본 정보 */}
-      <div className="fi" style={{ animationDelay: "0.45s", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "8px", padding: "20px", marginBottom: "24px" }}>
+      <div className="fi" style={{ animationDelay: "0.35s", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "8px", padding: "20px", marginBottom: "24px" }}>
         <p style={{ fontSize: "10px", color: "rgba(232,228,220,0.35)", marginBottom: "18px", letterSpacing: "2px", textTransform: "uppercase" }}>기본 정보 (선택)</p>
         <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
           <input value={name} onChange={e => setName(e.target.value)} placeholder="이름"

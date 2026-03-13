@@ -88,7 +88,7 @@ export default function PasswordGate({ children }) {
         <div style={{ fontSize: "10px", letterSpacing: "5px", color: "#C8A96E", marginBottom: "28px", fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif", fontStyle: "italic" }}>
           STELLA LAB
         </div>
-        <h2 style={{ fontSize: "18px", fontWeight: "900", letterSpacing: "3px", marginBottom: "8px", color: "#E8E4DC", fontFamily: "'SeoulNotice', sans-serif" }}>
+        <h2 style={{ fontSize: "18px", fontWeight: "900", letterSpacing: "1px", marginBottom: "8px", color: "#E8E4DC", fontFamily: "'SeoulNotice', sans-serif" }}>
           방어기제 검사
         </h2>
         <p style={{ fontSize: "12px", color: "rgba(232,228,220,0.35)", letterSpacing: "1px", marginBottom: "36px" }}>

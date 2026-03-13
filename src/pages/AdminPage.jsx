@@ -117,7 +117,7 @@ export default function AdminPage() {
           <div style={{ fontSize: "10px", letterSpacing: "5px", color: "#C8A96E", marginBottom: "28px", fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif", fontStyle: "italic" }}>
             STELLA LAB · ADMIN
           </div>
-          <h2 style={{ fontSize: "16px", fontWeight: "900", letterSpacing: "3px", marginBottom: "32px", color: "#E8E4DC", fontFamily: "'SeoulNotice', sans-serif" }}>관리자 인증</h2>
+          <h2 style={{ fontSize: "16px", fontWeight: "900", letterSpacing: "1px", marginBottom: "32px", color: "#E8E4DC", fontFamily: "'SeoulNotice', sans-serif" }}>관리자 인증</h2>
           <form onSubmit={handleAdminLogin} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             <input
               type="password" value={adminInput}
@@ -141,7 +141,7 @@ export default function AdminPage() {
         <div style={{ fontSize: "10px", letterSpacing: "5px", color: "#C8A96E", marginBottom: "8px", fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif", fontStyle: "italic" }}>
           STELLA LAB · ADMIN
         </div>
-        <h1 style={{ fontSize: "18px", fontWeight: "900", letterSpacing: "2px", marginBottom: "32px", color: "#E8E4DC", fontFamily: "'SeoulNotice', sans-serif" }}>설문 관리</h1>
+        <h1 style={{ fontSize: "18px", fontWeight: "900", letterSpacing: "1px", marginBottom: "32px", color: "#E8E4DC", fontFamily: "'SeoulNotice', sans-serif" }}>설문 관리</h1>
 
         {saved && (
           <div style={{ background: "rgba(200,169,110,0.08)", border: "1px solid rgba(200,169,110,0.2)", borderRadius: "4px", padding: "12px", marginBottom: "20px", fontSize: "13px", color: "#C8A96E", textAlign: "center" }}>
