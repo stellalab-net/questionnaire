@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import { getDatabase, ref, get, set } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDBQ1p5cEps1djhS6XKJs-PnTbUiL0xz6g",
@@ -9,16 +9,17 @@ const firebaseConfig = {
   messagingSenderId: "873910184985",
   appId: "1:873910184985:web:ad42b4fa8c999780414e88",
   measurementId: "G-HCYC11P9R0",
+  databaseURL: "https://questionnaire-fce29-default-rtdb.firebaseio.com",
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const db = getDatabase(app);
 
 export async function getConfig() {
-  const snap = await getDoc(doc(db, "settings", "config"));
-  return snap.exists() ? snap.data() : null;
+  const snap = await get(ref(db, "config"));
+  return snap.exists() ? snap.val() : null;
 }
 
 export async function setConfig(data) {
-  await setDoc(doc(db, "settings", "config"), data);
+  await set(ref(db, "config"), data);
 }
