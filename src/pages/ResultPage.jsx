@@ -23,6 +23,7 @@ function computeResults(answers) {
 export default function ResultPage({ answers, name, age, gender, onRetry }) {
   const captureRef = useRef(null);
   const [saving, setSaving] = useState(false);
+  const [showShare, setShowShare] = useState(false);
   const results = computeResults(answers);
   const sectionKeys = Object.keys(SCALES);
 
@@ -45,6 +46,7 @@ export default function ResultPage({ answers, name, age, gender, onRetry }) {
       a.href = dataUrl;
       a.download = `방어기제검사_${name || "결과"}.png`;
       a.click();
+      setShowShare(true);
     } finally {
       setSaving(false);
     }
@@ -117,23 +119,13 @@ export default function ResultPage({ answers, name, age, gender, onRetry }) {
       </div>
 
       {/* Footer inside capture */}
-      <div style={{ marginTop: "28px", padding: "18px 0 4px", borderTop: "1px solid rgba(255,255,255,0.06)", textAlign: "center" }}>
-        <div style={{ fontSize: "10px", letterSpacing: "3px", color: "rgba(200,169,110,0.4)", marginBottom: "10px" }}>STELLA LAB · 명리 × 심리</div>
-        <div style={{ fontSize: "11px", color: "rgba(232,228,220,0.45)", letterSpacing: "0.5px", lineHeight: 1.8, marginBottom: "12px" }}>
+      <div style={{ marginTop: "28px", padding: "16px 0 4px", borderTop: "1px solid rgba(255,255,255,0.06)", textAlign: "center" }}>
+        <div style={{ fontSize: "10px", letterSpacing: "3px", color: "rgba(200,169,110,0.4)", marginBottom: "8px" }}>STELLA LAB · 명리 × 심리</div>
+        <div style={{ fontSize: "10px", color: "rgba(232,228,220,0.3)", letterSpacing: "0.5px" }}>
           이 결과는 상담 전문가와의 심층 해석을 권장합니다
         </div>
-        <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}>
-          <a href="https://www.instagram.com/stellalab.i/" target="_blank" rel="noopener noreferrer"
-            style={{ fontSize: "11px", color: "rgba(200,169,110,0.6)", textDecoration: "none", letterSpacing: "0.5px" }}>
-            <span style={{ fontSize: "9px", color: "rgba(232,228,220,0.3)", marginRight: "4px" }}>Instagram</span>
-            @stellalab.i
-          </a>
-          <span style={{ color: "rgba(255,255,255,0.1)", fontSize: "11px" }}>·</span>
-          <a href="mailto:stlab_i@naver.com"
-            style={{ fontSize: "11px", color: "rgba(200,169,110,0.6)", textDecoration: "none", letterSpacing: "0.5px" }}>
-            <span style={{ fontSize: "9px", color: "rgba(232,228,220,0.3)", marginRight: "4px" }}>Naver</span>
-            stlab_i
-          </a>
+        <div style={{ marginTop: "6px", fontSize: "9px", color: "rgba(200,169,110,0.3)", letterSpacing: "1px" }}>
+          Instagram @stellalab.i &nbsp;·&nbsp; Naver stlab_i
         </div>
       </div>
     </div>
@@ -149,6 +141,47 @@ export default function ResultPage({ answers, name, age, gender, onRetry }) {
           다시 검사하기
         </button>
       </div>
+
+      {/* Save complete modal */}
+      {showShare && (
+        <div onClick={() => setShowShare(false)} style={{
+          position: "fixed", inset: 0, zIndex: 100,
+          background: "rgba(12,12,18,0.85)", backdropFilter: "blur(6px)",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          padding: "24px", animation: "fadeIn 0.25s ease",
+        }}>
+          <style>{`@keyframes fadeIn { from { opacity:0; } to { opacity:1; } } @keyframes slideUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }`}</style>
+          <div onClick={e => e.stopPropagation()} style={{
+            width: "100%", maxWidth: "320px", background: "#13131A",
+            border: "1px solid rgba(200,169,110,0.2)", borderRadius: "8px",
+            padding: "36px 28px 28px", textAlign: "center",
+            animation: "slideUp 0.3s ease",
+          }}>
+            <div style={{ fontSize: "9px", letterSpacing: "4px", color: "rgba(200,169,110,0.5)", marginBottom: "20px" }}>STELLA LAB</div>
+            <div style={{ fontSize: "22px", marginBottom: "8px" }}>✓</div>
+            <p style={{ fontSize: "14px", color: "#E8E4DC", letterSpacing: "1px", marginBottom: "6px" }}>이미지가 저장되었습니다</p>
+            <p style={{ fontSize: "12px", color: "rgba(232,228,220,0.35)", marginBottom: "32px", lineHeight: 1.7 }}>
+              상담 전문가와 함께 심층 해석을<br />받아보세요
+            </p>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "20px" }}>
+              <a href="https://www.instagram.com/stellalab.i/" target="_blank" rel="noopener noreferrer"
+                style={{ display: "block", padding: "13px", border: "1px solid rgba(200,169,110,0.35)", borderRadius: "2px", color: "#C8A96E", fontSize: "12px", letterSpacing: "2px", textDecoration: "none" }}>
+                Instagram &nbsp;@stellalab.i
+              </a>
+              <a href="mailto:stlab_i@naver.com"
+                style={{ display: "block", padding: "13px", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "2px", color: "rgba(232,228,220,0.5)", fontSize: "12px", letterSpacing: "2px", textDecoration: "none" }}>
+                Naver 메일 &nbsp;stlab_i
+              </a>
+            </div>
+
+            <button onClick={() => setShowShare(false)}
+              style={{ background: "transparent", border: "none", color: "rgba(232,228,220,0.25)", fontSize: "11px", letterSpacing: "2px", cursor: "pointer", fontFamily: "inherit" }}>
+              닫기
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
